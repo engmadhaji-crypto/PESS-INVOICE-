@@ -1114,11 +1114,11 @@ function App(){
     const question=smartPrompt.trim();if(!question)return;
     setSmartBusy(true);setSmartReply('');
     try{
-      const res=await fetch('/api/pess-assistant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,context:currentDocContext()})});
+      const res=await fetch('https://pess-engineering-safety.netlify.app/api/pess-assistant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,context:currentDocContext()})});
       const data=await res.json().catch(()=>({}));
       if(!res.ok)throw new Error(data.error||('HTTP '+res.status));
       setSmartReply(data.answer||'لم يصل رد من المساعد.');
-    }catch(e){setSmartReply('تعذر الاتصال بالمساعد الذكي. تأكد من نشر إصدار V35 على Netlify وتفعيل AI Gateway. التفاصيل: '+(e.message||e));}
+    }catch(e){setSmartReply('تعذر الاتصال بالمساعد الذكي. تحقق من اتصال الإنترنت ونشر وظيفة المساعد على Netlify وتفعيل AI Gateway. التفاصيل: '+(e.message||e));}
     finally{setSmartBusy(false);}
   };
   const sendDocumentEmail=async()=>{
